@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
+import '../styles/test.less'
+
 export default class App extends Component {
   render() {
     return (
-      <div>React simple starter</div>
+      <div className="test">React simple starter</div>
     );
   }
 }
