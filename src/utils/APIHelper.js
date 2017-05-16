@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_BASE = 'http://127.0.0.1:8888';
+const API_BASE = `http://${location.host}`;
 
 export default {
   get: (url) => {
