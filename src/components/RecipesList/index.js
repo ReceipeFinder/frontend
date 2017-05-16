@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
 
-class RecipesList extends Component{
+import Spinner from '../../_components/Spinner'
+
+class RecipesList extends Component {
   render() {
     return (
-      <div>RevcipeFinder</div>
+      <div className="recipes-list">
+        
+        <div className="recipes-list-spinner">
+          <Spinner/>
+        </div>
+      </div>
     )
   }
 }

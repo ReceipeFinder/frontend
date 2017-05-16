@@ -1,3 +1,6 @@
+@main-color: #16a815;
+@secondary-color: #ffa500;
+
 body, html {
   width: 100%;
   height: 100%;
@@ -7,46 +10,43 @@ body, html {
   cursor: pointer !important;
 }
 
+.secondary-color {
+  color: #ffa500;
+}
+
 .app {
   width: 100%;
   height: 100%;
   margin: 0;
-
+  overflow: hidden;
 }
 
 .main__layout {
   width: 100%;
   height: 100%;
-  display: flex;
 }
 
-.user-profile__wrapper {
-  width: 300px;
-  height: 100%;
+main {
   position: relative;
-  left: -300px;
-  transition: left, .5s;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
 
-  &.visible {
-    left:0;
-  }
+.topbar {
+  width: 100%;
+  height: 60px;
+  background: #16a815;
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 25px black;
+  z-index: 5;
 
-  .user-profile__toggler {
-    z-index: 10;
-    position: absolute;
-    top:0;
-    right: -40px;
-    background: grey;
-    width: 40px;
-    height: 40px;
+  & .topbar__title {
     color: white;
-
-    span {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      font-size: 20px;
-      transform: translateX(-50%) translateY(-50%);
-    }
+    font-size: 36px;
+    margin: 0 auto;
   }
 }

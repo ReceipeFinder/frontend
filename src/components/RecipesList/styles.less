@@ -1,0 +1,42 @@
+.recipes-list__wrapper {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  right: -300px;
+  transition: left, .5s;
+
+  &.visible {
+    right:0;
+  }
+
+  .recipes-list__toggler {
+    z-index: 10;
+    position: absolute;
+    top:0;
+    left: -40px;
+    background: grey;
+    width: 40px;
+    height: 40px;
+    color: white;
+
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-size: 20px;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+}
+
+.recipes-list {
+  background: white;
+  box-shadow: 0 0 5px black;
+  width: 300px;
+  height: 100%;
+}
+
+.recipes-list__spinner {
+
+}
+
