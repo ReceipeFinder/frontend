@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import app from './components/app'
 
@@ -7,7 +7,9 @@ class Router extends Component {
   render() {
     return (
         <BrowserRouter>
-          <Route path='/' component={app}/>
+          <Switch>
+            <Route path='/' component={app}/>
+          </Switch>
         </BrowserRouter>
     )
   }
