@@ -23,6 +23,9 @@ class Router extends Component {
           )}/>
           
           <Route path='/login' component={Login}/>
+          <Route path='*'>
+            <Redirect to="/"/>
+          </Route>
         </Switch>
       </BrowserRouter>
     )

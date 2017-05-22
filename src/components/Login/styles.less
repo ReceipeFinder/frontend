@@ -1,5 +1,11 @@
 @color-facebook: #3b5998;
 
+.responsive(@maxWidth; @rules) {
+  @media only screen and (max-width: @maxWidth) {
+    @rules();
+  }
+}
+
 .login-modal__wrapper {
   width: 100%;
   height: 100%;
@@ -11,13 +17,19 @@
   background: white;
   width: 100%;
   max-width: 400px;
-  height: 500px;
-  margin: 0 auto;
+  height: 400px;
+  position: absolute;
+  right: 150px;
+  top: 150px;
   padding: 30px;
   display: flex;
-  position: relative;
   flex-wrap: wrap;
   border-radius: 5px;
+  opacity: 0.9;
+
+  .responsive(760px, { position: relative; top: auto; right: auto; margin: 0 auto; });
+
+  .responsive(480px, { max-width: 100%; top: 0; right: 0; width: 100%; height: 100%; border-radius: 0; })
 }
 
 .login__logo {
