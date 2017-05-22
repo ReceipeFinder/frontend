@@ -4,6 +4,10 @@
 body, html {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
+  background: url('/resources/background.jpg');
+  background-size: cover;
 }
 
 .clickable {
@@ -37,16 +41,14 @@ main {
 .topbar {
   width: 100%;
   height: 60px;
-  background: #16a815;
   position: relative;
   display: flex;
-  align-items: center;
-  box-shadow: 0 0 25px black;
+  align-items: flex-start;
   z-index: 5;
 
   & .topbar__title {
     color: white;
     font-size: 36px;
-    margin: 0 auto;
+    margin-right: 20px;
   }
 }

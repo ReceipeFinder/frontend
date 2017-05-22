@@ -1,30 +1,31 @@
 import * as actions from './actions';
 
 const initialState = {
-  userProfile: {
+  recipes: {
     isFetching: true,
-    name: ''
+    list: []
   }
-}
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case actions.REQUEST_USER_PROFILE:
+    case actions.REQUEST_RECIPES_SEARCH:
       return {
         ...state,
-        userProfile: {
+        recipes: {
           ...state.userProfile,
+          isFetching: true
         }
       };
     
-    case actions.RECEIVE_USER_PROFILE:
+    case actions.RECEIVE_RECIPES_SEARCH:
       return {
         ...state,
-        userProfile: {
-          ...action.userProfile,
+        recipes: {
+          list: action.recipes,
           isFetching: false
         }
-      }
+      };
     
     default:
       return state

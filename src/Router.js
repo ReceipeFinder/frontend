@@ -1,18 +1,39 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
-
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 import app from './components/app'
+import Login from './components/Login'
 
 class Router extends Component {
+  
+  
   render() {
+    let {userProfile} = this.props;
+    
+    
     return (
-        <BrowserRouter>
-          <Switch>
-            <Route path='/' component={app}/>
-          </Switch>
-        </BrowserRouter>
+      <BrowserRouter>
+        
+        <Switch>
+          <Route exact path="/" render={() => (
+            userProfile.loggedIn ?
+              <Route path='/' component={app}/>
+              :
+              <Redirect to="/login"/>
+          )}/>
+          
+          <Route path='/login' component={Login}/>
+        </Switch>
+      </BrowserRouter>
     )
   }
 }
 
-export default Router
+
+function mapStateToProps(state) {
+  return {
+    userProfile: state.userProfile.userProfile
+  }
+}
+
+export default connect(mapStateToProps)(Router)

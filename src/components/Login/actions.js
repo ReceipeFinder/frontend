@@ -1,4 +1,3 @@
-import axios from 'axios';
 import API from '../../utils/APIHelper'
 
 export const REQUEST_USER_PROFILE = 'REQUEST_USER_PROFILE'
@@ -16,8 +15,7 @@ function receiveUserProfile(data) {
   }
 }
 
-
-export function fetchUserProfile() {
+export function login() {
   return dispatch => {
     requestUserProfile();
     

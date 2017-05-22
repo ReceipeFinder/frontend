@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux';
-import userProfileReducer from '../components/UserProfile/reducer'
+import loginReducer from '../components/Login/reducer'
+import recipeFinderReducer from '../components/RecipeFinder/reducer'
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
-  userProfile: userProfileReducer
+  userProfile: loginReducer,
+  recipeFinder: recipeFinderReducer
 });
 
 export default rootReducer;

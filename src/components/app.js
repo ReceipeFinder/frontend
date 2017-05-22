@@ -17,8 +17,8 @@ export default class App extends Component {
     super(props);
     
     this.state = {
-      showUserProfile: true,
-      showRecipesList: true
+      showUserProfile: false,
+      showRecipesList: false
     };
   
     this.toggleUserProfile = this.toggleUserProfile.bind(this);
@@ -37,7 +37,7 @@ export default class App extends Component {
     
     return (
       <div className="main__layout">
-        <TopBar/>
+        {/*<TopBar/>*/}
         <main>
           <div className={c({"user-profile__wrapper": true, "visible": this.state.showUserProfile})}>
             <UserProfile/>
