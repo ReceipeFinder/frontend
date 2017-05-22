@@ -39,29 +39,22 @@ export default class App extends Component {
       <div className="main__layout">
         {/*<TopBar/>*/}
         <main>
-          <div className={c({"user-profile__wrapper": true, "visible": this.state.showUserProfile})}>
-            <UserProfile/>
-            <div className="user-profile__toggler clickable" onClick={this.toggleUserProfile}>
-            <span className={c({
-              "pt-icon-standard": true,
-              "pt-icon-chevron-right": !this.state.showUserProfile,
-              "pt-icon-chevron-left": this.state.showUserProfile
-            })}/>
-            </div>
-          </div>
+          {/*<div className={c({"user-profile__wrapper": true, "visible": this.state.showUserProfile})}>*/}
+            {/*<UserProfile/>*/}
+            {/*<div className="user-profile__toggler clickable" onClick={this.toggleUserProfile}>*/}
+            {/*<span className={c({*/}
+              {/*"pt-icon-standard": true,*/}
+              {/*"pt-icon-chevron-right": !this.state.showUserProfile,*/}
+              {/*"pt-icon-chevron-left": this.state.showUserProfile*/}
+            {/*})}/>*/}
+            {/*</div>*/}
+          {/*</div>*/}
   
           <RecipeFinder/>
   
-          <div className={c({"recipes-list__wrapper": true, "visible": this.state.showRecipesList})}>
-            <RecipesList/>
-            <div className="recipes-list__toggler clickable" onClick={this.toggleRecipesList}>
-            <span className={c({
-              "pt-icon-standard": true,
-              "pt-icon-chevron-right": this.state.showRecipesList,
-              "pt-icon-chevron-left": !this.state.showRecipesList
-            })}/>
-            </div>
-          </div>
+          {/*<div className="recipes-list__wrapper">*/}
+            {/*<RecipesList/>*/}
+          {/*</div>*/}
         </main>
       </div>
     );

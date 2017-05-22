@@ -15,8 +15,8 @@ class Login extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    // if(nextProps.userProfile.userProfile.loggedIn)
-    // this.props.history.push('/')
+    if (nextProps.userProfile.userProfile.loggedIn)
+      this.props.history.push('/')
   }
   
   render() {

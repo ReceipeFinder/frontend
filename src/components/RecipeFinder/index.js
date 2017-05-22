@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
+import ListItem from './ListItem';
 import {searchRecipes} from './actions'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import c from 'classnames'
 
-class RecipeFinder extends Component{
+class RecipeFinder extends Component {
   constructor(props) {
     super(props);
     
@@ -26,12 +29,32 @@ class RecipeFinder extends Component{
   }
   
   render() {
+    let {list} = this.props;
     return (
-      <div>
-        <form onSubmit={this.submitSearch}>
-          <input type="text" placeholder="Ingredients..." onChange={this.handleIngredientsInputChange}/>
-          {console.log(this.props.list)}
-        </form>
+      <div className="recipe-finder">
+        <div className={c({"recipe-finder__form__wrapper": true, "closed": list && list.length > 0})}>
+          <p className="description">Search for recipes by ingredients <br/>you feel like to eat</p>
+          <form onSubmit={this.submitSearch} className="recipe-finder__form">
+            <input type="text" placeholder="Ingredients..." onChange={this.handleIngredientsInputChange}/>
+          </form>
+          <p className="details">Type in ingredients seperated by comma</p>
+        </div>
+        {/*<div>*/}
+          <PerfectScrollbar>
+            <div className="recipe-finder__recipes" style={{height: '100%'}}>
+              {
+                list ?
+                  list.length > 0 ? list.map(recipe => {
+                    return (
+                      <ListItem recipe={recipe}/>
+                    )
+                  })
+                    : null
+                  : null
+              }
+            </div>
+          </PerfectScrollbar>
+        {/*</div>*/}
       </div>
     )
   }
