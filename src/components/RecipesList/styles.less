@@ -1,39 +1,37 @@
 .recipes-list__wrapper {
-  position: relative;
-  width: 300px;
+  background: rgba(255, 255, 255, 0.3);
+  width: 100%;
   height: 100%;
-  right: 0;
-  transition: left, .5s;
-
-  &.visible {
-    right:0;
-  }
-
-  .recipes-list__toggler {
-    z-index: 10;
-    position: absolute;
-    top:0;
-    left: -40px;
-    background: grey;
-    width: 40px;
-    height: 40px;
-    color: white;
-
-    span {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      font-size: 20px;
-      transform: translateX(-50%) translateY(-50%);
-    }
-  }
 }
 
 .recipes-list {
-  background: white;
-  box-shadow: 0 0 5px black;
+  width: 100%;
+  height: 100%;
+}
+
+.recipes-list__sidebar {
   width: 300px;
   height: 100%;
+  background: #232627;
+}
+
+.sidebar__tabs {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar__tab {
+  flex: 1;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 10px;
+  border-bottom: 1px solid rgba(231, 202, 179, 0.2);
+  transition: border-bottom .5s;
+
+  &.active {
+    border-bottom: 1px solid #e7cab3;
+  }
 }
 
 .recipes-list__spinner {

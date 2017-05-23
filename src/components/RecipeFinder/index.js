@@ -29,9 +29,9 @@ class RecipeFinder extends Component {
   }
   
   render() {
-    let {list} = this.props;
+    let {list, hidden} = this.props;
     return (
-      <div className="recipe-finder">
+      <div className={c({"recipe-finder": true})}>
         <div className={c({"recipe-finder__form__wrapper": true, "closed": list && list.length > 0})}>
           <p className="description">Search for recipes by ingredients <br/>you feel like to eat</p>
           <form onSubmit={this.submitSearch} className="recipe-finder__form">
@@ -40,20 +40,20 @@ class RecipeFinder extends Component {
           <p className="details">Type in ingredients seperated by comma</p>
         </div>
         {/*<div>*/}
-          <PerfectScrollbar>
-            <div className="recipe-finder__recipes" style={{height: '100%'}}>
-              {
-                list ?
-                  list.length > 0 ? list.map((recipe, idx) => {
-                    return (
-                      <ListItem key={idx} index={idx} recipe={recipe}/>
-                    )
-                  })
-                    : null
+        <PerfectScrollbar>
+          <div className="recipe-finder__recipes" style={{height: '100%'}}>
+            {
+              list ?
+                list.length > 0 ? list.map((recipe, idx) => {
+                  return (
+                    <ListItem key={idx} index={idx} recipe={recipe}/>
+                  )
+                })
                   : null
-              }
-            </div>
-          </PerfectScrollbar>
+                : null
+            }
+          </div>
+        </PerfectScrollbar>
         {/*</div>*/}
       </div>
     )

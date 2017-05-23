@@ -18,11 +18,13 @@ export default class App extends Component {
     
     this.state = {
       showUserProfile: false,
-      showRecipesList: false
+      showRecipesList: false,
+      hideRecipeFinder: true
     };
-  
+    
     this.toggleUserProfile = this.toggleUserProfile.bind(this);
     this.toggleRecipesList = this.toggleRecipesList.bind(this);
+    this.toggleRecipeFinder = this.toggleRecipeFinder.bind(this);
   }
   
   toggleUserProfile() {
@@ -33,6 +35,10 @@ export default class App extends Component {
     this.setState({showRecipesList: !this.state.showRecipesList})
   }
   
+  toggleRecipeFinder() {
+    this.setState({hideRecipeFinder: !this.state.hideRecipeFinder})
+  }
+  
   render() {
     
     return (
@@ -40,21 +46,30 @@ export default class App extends Component {
         {/*<TopBar/>*/}
         <main>
           {/*<div className={c({"user-profile__wrapper": true, "visible": this.state.showUserProfile})}>*/}
-            {/*<UserProfile/>*/}
-            {/*<div className="user-profile__toggler clickable" onClick={this.toggleUserProfile}>*/}
-            {/*<span className={c({*/}
-              {/*"pt-icon-standard": true,*/}
-              {/*"pt-icon-chevron-right": !this.state.showUserProfile,*/}
-              {/*"pt-icon-chevron-left": this.state.showUserProfile*/}
-            {/*})}/>*/}
-            {/*</div>*/}
+          {/*<UserProfile/>*/}
+          {/*<div className="user-profile__toggler clickable" onClick={this.toggleUserProfile}>*/}
+          {/*<span className={c({*/}
+          {/*"pt-icon-standard": true,*/}
+          {/*"pt-icon-chevron-right": !this.state.showUserProfile,*/}
+          {/*"pt-icon-chevron-left": this.state.showUserProfile*/}
+          {/*})}/>*/}
           {/*</div>*/}
-  
-          <RecipeFinder/>
-  
-          {/*<div className="recipes-list__wrapper">*/}
-            {/*<RecipesList/>*/}
           {/*</div>*/}
+          <div className="recipes-list__wrapper">
+            <RecipesList visible={this.state.hideRecipeFinder}/>
+          </div>
+          
+          <div className={c({"recipe-finder__wrapper": true, "hidden": this.state.hideRecipeFinder})}>
+            <div className="recipe-finder__toggler clickable" onClick={this.toggleRecipeFinder}>
+            <span className={c({
+              "pt-icon-standard": true,
+              "pt-icon-chevron-right": !this.state.hideRecipeFinder,
+              "pt-icon-chevron-left": this.state.hideRecipeFinder
+            })}/>
+            </div>
+            <RecipeFinder hidden={this.state.hideRecipeFinder}/>
+          </div>
+        
         </main>
       </div>
     );
