@@ -44,9 +44,9 @@ class RecipeFinder extends Component {
             <div className="recipe-finder__recipes" style={{height: '100%'}}>
               {
                 list ?
-                  list.length > 0 ? list.map(recipe => {
+                  list.length > 0 ? list.map((recipe, idx) => {
                     return (
-                      <ListItem recipe={recipe}/>
+                      <ListItem key={idx} index={idx} recipe={recipe}/>
                     )
                   })
                     : null

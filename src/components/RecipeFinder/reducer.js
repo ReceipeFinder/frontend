@@ -2,8 +2,10 @@ import * as actions from './actions';
 
 const initialState = {
   recipes: {
+    didInvalidate: true,
     isFetching: true,
-    list: []
+    list: [],
+    workspace: {}
   }
 };
 
@@ -24,6 +26,14 @@ export default function reducer(state = initialState, action) {
         recipes: {
           list: action.recipes,
           isFetching: false
+        }
+      };
+      
+    case actions.SET_RECIPE_IN_WORKSPACE:
+      return {
+        ...state,
+        workspace: {
+          ...action.recipe
         }
       };
     

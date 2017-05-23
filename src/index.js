@@ -12,6 +12,6 @@ const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <AppRouter />
+    <AppRouter/>
   </Provider>
   , document.querySelector('.app'));
