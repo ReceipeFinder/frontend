@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import c from 'classnames';
+import {connect} from 'react-redux';
+import {fetchMyFavouritesIfNeeded, fetchMyDoneIfNeeded, fetchMyTodoIfNeeded} from './actions'
 
-import List from './List'
+import List from './List/List'
 
 class RecipesList extends Component {
   constructor(props) {
@@ -12,6 +14,10 @@ class RecipesList extends Component {
     };
     
     this.changeActiveTab = this.changeActiveTab.bind(this);
+  }
+  
+  componentDidMount() {
+    this.props.refresh();
   }
   
   changeActiveTab(index) {
@@ -35,11 +41,23 @@ class RecipesList extends Component {
           </div>
         </div>
         <div className="list__wrapper">
-        
+          <List/>
         </div>
       </div>
     )
   }
 }
 
-export default RecipesList
+function mapStateToProps(state) {
+  console.log(state)
+  return {
+  }
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    refresh: () => dispatch(fetchMyFavouritesIfNeeded())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipesList)
