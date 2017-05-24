@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import c from 'classnames';
 import {connect} from 'react-redux';
-import {fetchMyFavouritesIfNeeded, fetchMyDoneIfNeeded, fetchMyTodoIfNeeded} from './actions'
+import {fetchMyRecipesIfNeeded} from './actions'
 
 import List from './List/List'
 
@@ -14,6 +14,7 @@ class RecipesList extends Component {
     };
     
     this.changeActiveTab = this.changeActiveTab.bind(this);
+    this.renderLists = this.renderLists.bind(this);
   }
   
   componentDidMount() {
@@ -24,7 +25,23 @@ class RecipesList extends Component {
     this.setState({activeTab: index})
   }
   
+  renderLists() {
+    let {favourites, todo, done} = this.props;
+    
+    if (this.state.activeTab === 0) {
+      return <List recipes={favourites}/>
+    }
+    else if (this.state.activeTab === 1) {
+      return <List recipes={todo}/>
+    }
+    else {
+      return <List recipes={done}/>
+    }
+  }
+  
   render() {
+    let {favourites, todo, done} = this.props;
+    
     return (
       <div className="recipes-list">
         <div className="recipes-list__sidebar">
@@ -39,25 +56,60 @@ class RecipesList extends Component {
                  onClick={() => this.changeActiveTab(2)}>to do
             </div>
           </div>
-        </div>
-        <div className="list__wrapper">
-          <List/>
+          <div className="list__wrapper">
+            {
+              favourites.length !== 0 && this.state.activeTab === 0
+                ? <List recipes={favourites}/>
+                : null
+            }
+            {
+              done.length !== 0 && this.state.activeTab === 1
+                ? <List recipes={done}/>
+                : null
+            }
+            {
+              todo.length !== 0 && this.state.activeTab === 2
+                ? <List recipes={todo}/>
+                : null
+            }
+            {
+              favourites.length !== 0 && done.length !== 0 && todo.length !== 0
+                ? null
+                : <div style={{color: 'white', fontSize: '25px', marginTop: '50px'}}>
+                No recipes in here :(
+              </div>
+            }
+          </div>
         </div>
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
+function
+
+mapStateToProps(state) {
   console.log(state)
   return {
+    favourites: state.myRecipes.favourites,
+    done: state.myRecipes.done,
+    todo: state.myRecipes.todo
   }
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function
+
+mapDispatchToProps(dispatch, ownProps) {
   return {
-    refresh: () => dispatch(fetchMyFavouritesIfNeeded())
+    refresh: () => dispatch(fetchMyRecipesIfNeeded())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipesList)
+export
+default
+
+connect(mapStateToProps, mapDispatchToProps)
+
+(
+  RecipesList
+)

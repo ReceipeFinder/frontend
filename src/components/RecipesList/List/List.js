@@ -1,39 +1,27 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux'
-import c from 'classnames';
+import Scrollbar from 'react-perfect-scrollbar'
 
-
+import ListItem from './ListItem'
 import {fetchMyFavouritesIfNeeded} from '../actions'
 
 class List extends Component {
   constructor(props) {
     super(props);
-    
-  }
-  
-  componentDidMount() {
-    this.props.refresh();
   }
   
   render() {
+    let {recipes} = this.props
+    
     return (
-      <div className="recipes-list">
-      
-      
+      <div className="list-of-recipes">
+        <Scrollbar>
+          {recipes.map((recipe, index) =>
+            <ListItem key={index} recipe={recipe}/>
+          )}
+        </Scrollbar>
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-  }
-}
-
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    refresh: () => dispatch(fetchMyFavouritesIfNeeded())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default List

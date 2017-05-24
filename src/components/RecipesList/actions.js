@@ -1,92 +1,35 @@
 import API from '../../utils/APIHelper'
 
-export const REQUEST_MY_FAVOURITES = 'REQUEST_MY_FAVOURITES';
-function requestMyFavourites() {
+
+export const REQUEST_MY_RECIPES = 'REQUEST_MY_RECIPES';
+function requestMyRecipes() {
   return {
-    type: REQUEST_MY_FAVOURITES
+    type: REQUEST_MY_RECIPES
   }
 }
 
-
-export const RECEIVE_MY_FAVOURITES = 'RECEIVE_MY_FAVOURITES';
-function receiveMyFavourites(recipes) {
+export const RECEIVE_MY_RECIPES = 'RECEIVE_MY_RECIPES';
+function receiveMyRecipes(recipes) {
   return {
-    type: RECEIVE_MY_FAVOURITES,
+    type: RECEIVE_MY_RECIPES,
     recipes: recipes
   }
 }
 
-export const REQUEST_MY_DONE = 'REQUEST_MY_DONE';
-function requestMyDone() {
-  return {
-    type: REQUEST_MY_DONE
-  }
-}
 
-
-export const RECEIVE_MY_DONE = 'RECEIVE_MY_DONE';
-function receiveMyDone(recipes) {
-  return {
-    type: RECEIVE_MY_DONE,
-    recipes: recipes
-  }
-}
-
-export const REQUEST_MY_TODO = 'REQUEST_MY_TODO';
-function requestMyTodo() {
-  return {
-    type: REQUEST_MY_TODO
-  }
-}
-
-
-export const RECEIVE_MY_TODO = 'RECEIVE_MY_TODO';
-function receiveMyTodo(recipes) {
-  return {
-    type: RECEIVE_MY_TODO,
-    recipes: recipes
-  }
-}
-
-// export const INVALIDATE_RECIPES = 'INVALIDATE_RECIPES';
-// export function invalidateRecipes() {
-//   return {
-//     type: INVALIDATE_RECIPES
-//   }
-// }
-//
-//
-// case actions.INVALIDATE_RECIPES:
-// return {
-//   ...state,
-//   recipes: {
-//     didInvalidate: true
-//   }
-// };
-
-export function fetchMyFavouritesIfNeeded() {
+export function fetchMyRecipesIfNeeded() {
   return dispatch => {
-    dispatch(requestMyFavourites());
-    API.get(`/recipes/favourites`).then((data) => {
-      dispatch(receiveMyFavourites(data.data))
-    })
-  }
-}
-
-export function fetchMyDoneIfNeeded() {
-  return dispatch => {
-    dispatch(requestMyFavourites());
-    API.get(`/recipes/done`).then((data) => {
-      dispatch(receiveMyFavourites(data))
-    })
-  }
-}
-
-export function fetchMyTodoIfNeeded() {
-  return dispatch => {
-    dispatch(requestMyFavourites());
-    API.get(`/recipes/todo`).then((data) => {
-      dispatch(receiveMyFavourites(data))
+    dispatch(requestMyRecipes());
+    API.get(`/recipes/favourites`).then((favourites) => {
+      API.get(`/recipes/done`).then(done => {
+        API.get(`/recipes/todo`).then(todo => {
+          dispatch(receiveMyRecipes({
+            favourites: favourites.data,
+            done: done.data,
+            todo: todo.data
+          }))
+        })
+      })
     })
   }
 }
