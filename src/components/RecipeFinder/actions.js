@@ -16,24 +16,7 @@ function receiveRecipesSearch(recipes) {
   }
 }
 
-// export const INVALIDATE_RECIPES = 'INVALIDATE_RECIPES';
-// export function invalidateRecipes() {
-//   return {
-//     type: INVALIDATE_RECIPES
-//   }
-// }
-//
-//
-// case actions.INVALIDATE_RECIPES:
-// return {
-//   ...state,
-//   recipes: {
-//     didInvalidate: true
-//   }
-// };
-
 export function fetchSingleRecipe(id) {
-  console.log('FETCHING SINGLE RECIPE');
   return dispatch => {
     API.get(`/recipes/${id}`).then((data) => {
       dispatch(setRecipeInWorkspace(data))
@@ -42,7 +25,7 @@ export function fetchSingleRecipe(id) {
 }
 
 export const SET_RECIPE_IN_WORKSPACE = 'SET_RECIPE_IN_WORKSPACE';
-function setRecipeInWorkspace(recipe) {
+export function setRecipeInWorkspace(recipe) {
   return {
     type: SET_RECIPE_IN_WORKSPACE,
     recipe

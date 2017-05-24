@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {ContextMenu, MenuFactory, MenuItemFactory, Dialog, Button} from "@blueprintjs/core";
-
-import SingleRecipe from '../SingleRecipe'
+import API from '../../../utils/APIHelper'
 import './styles.less'
 
 class ListItem extends Component {
@@ -24,15 +23,15 @@ class ListItem extends Component {
   }
   
   addToFavourites() {
-  
+    API.post(`/recipes/favourites/${this.props.recipe.id}`)
   }
   
   addToTodoList() {
-  
+    API.post(`/recipes/todo/${this.props.recipe.id}`)
   }
   
   addToDoneList() {
-  
+    API.post(`/recipes/done/${this.props.recipe.id}`)
   }
   
   render() {
@@ -47,21 +46,21 @@ class ListItem extends Component {
                  MenuItemFactory({
                    key: 1,
                    onClick: () => {
-                     console.log('dzizlaa')
+                     this.addToFavourites()
                    },
                    text: "Add to list: favourites"
                  }),
                  MenuItemFactory({
                    key: 2,
                    onClick: () => {
-                     console.log('dzizlaa')
+                     this.addToDoneList()
                    },
                    text: "Add to list: done"
                  }),
                  MenuItemFactory({
                    key: 3,
                    onClick: () => {
-                     console.log('dzizlaa')
+                     this.addToTodoList()
                    },
                    text: "Add to list: to do"
                  })
@@ -81,8 +80,6 @@ class ListItem extends Component {
             <p>{recipe.title}</p>
           </div>
         </div>
-        {/*<SingleRecipe isOpen={this.state.recipeModalOpened} toggleRecipeModal={this.toggleRecipeModal}/>*/}
-        
         <Dialog isOpen={this.state.recipeModalOpened}
                 onClose={this.toggleRecipeModal}>
           <div className="pt-dialog-body">

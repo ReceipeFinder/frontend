@@ -65,17 +65,15 @@ function receiveMyTodo(recipes) {
 // };
 
 export function fetchMyFavouritesIfNeeded() {
-  console.log('FETCHING RECIPES: ');
   return dispatch => {
     dispatch(requestMyFavourites());
     API.get(`/recipes/favourites`).then((data) => {
-      dispatch(receiveMyFavourites(data))
+      dispatch(receiveMyFavourites(data.data))
     })
   }
 }
 
 export function fetchMyDoneIfNeeded() {
-  console.log('FETCHING RECIPES: ');
   return dispatch => {
     dispatch(requestMyFavourites());
     API.get(`/recipes/done`).then((data) => {
@@ -85,7 +83,6 @@ export function fetchMyDoneIfNeeded() {
 }
 
 export function fetchMyTodoIfNeeded() {
-  console.log('FETCHING RECIPES: ');
   return dispatch => {
     dispatch(requestMyFavourites());
     API.get(`/recipes/todo`).then((data) => {

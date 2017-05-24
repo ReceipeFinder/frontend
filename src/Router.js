@@ -4,8 +4,13 @@ import {connect} from 'react-redux'
 import app from './components/app'
 import Login from './components/Login'
 
+import {checkUserProfile} from './components/Login/actions'
+
 class Router extends Component {
   
+  componentDidMount() {
+    this.props.checkUser();
+  }
   
   render() {
     let {userProfile} = this.props;
@@ -39,4 +44,12 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Router)
+function mapDispatchToProps(dispatch) {
+  return {
+    checkUser: () => {
+      dispatch(checkUserProfile())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Router)

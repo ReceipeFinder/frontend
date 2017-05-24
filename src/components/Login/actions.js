@@ -15,7 +15,7 @@ function receiveUserProfile(data) {
   }
 }
 
-export function login() {
+export function checkUserProfile() {
   return dispatch => {
     requestUserProfile();
     
@@ -28,3 +28,4 @@ export function login() {
     })
   }
 }
+

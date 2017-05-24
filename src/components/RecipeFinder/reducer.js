@@ -32,9 +32,13 @@ export default function reducer(state = initialState, action) {
     case actions.SET_RECIPE_IN_WORKSPACE:
       return {
         ...state,
-        workspace: {
-          ...action.recipe
+        recipes: {
+          ...state.recipes,
+          workspace: {
+            recipe: action.recipe
+          }
         }
+        
       };
     
     default:
