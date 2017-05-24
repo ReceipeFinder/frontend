@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Scrollbar from 'react-perfect-scrollbar'
 
-import ListItem from './ListItem'
+import ListItem from '../../RecipeFinder/ListItem'
 import {fetchMyFavouritesIfNeeded} from '../actions'
 
 class List extends Component {

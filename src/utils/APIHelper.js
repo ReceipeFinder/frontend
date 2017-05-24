@@ -8,5 +8,9 @@ export default {
   
   post(url, body) {
     return axios.post(`${API_BASE}${url}`, {body});
+  },
+  
+  remove(url, body) {
+    return axios.delete(`${API_BASE}${url}`, {body});
   }
 }

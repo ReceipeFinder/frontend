@@ -34,6 +34,18 @@ class ListItem extends Component {
     API.post(`/recipes/done/${this.props.recipe.id}`)
   }
   
+  removeFromFavourites() {
+    API.remove(`/recipes/favourites/${this.props.recipe.id}`)
+  }
+  
+  removeFromDone() {
+    API.remove(`/recipes/done/${this.props.recipe.id}`)
+  }
+  
+  removeFromTodo() {
+    API.remove(`/recipes/todo/${this.props.recipe.id}`)
+  }
+  
   render() {
     let {recipe} = this.props;
     return (
@@ -46,23 +58,23 @@ class ListItem extends Component {
                  MenuItemFactory({
                    key: 1,
                    onClick: () => {
-                     this.addToFavourites()
+                     recipe.user_recipe.favourite ? this.removeFromFavourites() : this.addToFavourites()
                    },
-                   text: "Add to list: favourites"
+                   text: recipe.user_recipe.favourite ? "Remove from list: favourites" : "Add to list: favourites"
                  }),
                  MenuItemFactory({
                    key: 2,
                    onClick: () => {
-                     this.addToDoneList()
+                     recipe.user_recipe.done ? this.removeFromDone() :this.addToDoneList()
                    },
-                   text: "Add to list: done"
+                   text: recipe.user_recipe.done ? "Remove from list: done": "Add to list: done"
                  }),
                  MenuItemFactory({
                    key: 3,
                    onClick: () => {
-                     this.addToTodoList()
+                     recipe.user_recipe.todo ? this.removeFromTodo() : this.addToTodoList()
                    },
-                   text: "Add to list: to do"
+                   text: recipe.user_recipe.todo ? "Remove from list: todo" : "Add to list: to do"
                  })
                ]
           
