@@ -10,37 +10,30 @@ class RecipesList extends Component {
     super(props);
     
     this.state = {
-      activeTab: 0
+      activeTab: 0,
     };
     
     this.changeActiveTab = this.changeActiveTab.bind(this);
-    this.renderLists = this.renderLists.bind(this);
   }
   
   componentDidMount() {
     this.props.refresh();
   }
   
+  componentDidUpdate(prevProps) {
+    if (prevProps.favourites !== this.props.favourites
+      || prevProps.done !== this.props.done
+      || prevProps.todo !== this.props.todo) {
+      this.props.refresh()
+    }
+  }
+  
   changeActiveTab(index) {
     this.setState({activeTab: index})
   }
   
-  renderLists() {
-    let {favourites, todo, done} = this.props;
-    
-    if (this.state.activeTab === 0) {
-      return <List recipes={favourites}/>
-    }
-    else if (this.state.activeTab === 1) {
-      return <List recipes={todo}/>
-    }
-    else {
-      return <List recipes={done}/>
-    }
-  }
-  
   render() {
-    let {favourites, todo, done} = this.props;
+    let {favourites, todo, done, userProfile} = this.props;
     
     return (
       <div className="recipes-list">
@@ -79,6 +72,10 @@ class RecipesList extends Component {
                 No recipes in here :(
               </div>
             }
+            <div className="user-details">
+              <div className="user-name">Logged in as {userProfile.name}</div>
+              <div className="user-logout clickable">logout</div>
+            </div>
           </div>
         </div>
       </div>
@@ -86,30 +83,20 @@ class RecipesList extends Component {
   }
 }
 
-function
-
-mapStateToProps(state) {
+function mapStateToProps(state) {
   console.log(state)
   return {
     favourites: state.myRecipes.favourites,
     done: state.myRecipes.done,
-    todo: state.myRecipes.todo
+    todo: state.myRecipes.todo,
+    userProfile: state.userProfile.userProfile
   }
 }
 
-function
-
-mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
     refresh: () => dispatch(fetchMyRecipesIfNeeded())
   }
 }
 
-export
-default
-
-connect(mapStateToProps, mapDispatchToProps)
-
-(
-  RecipesList
-)
+export default connect(mapStateToProps, mapDispatchToProps)(RecipesList)

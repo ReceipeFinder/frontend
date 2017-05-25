@@ -19,7 +19,7 @@ export default class App extends Component {
     this.state = {
       showUserProfile: false,
       showRecipesList: false,
-      hideRecipeFinder: true
+      hideRecipeFinder: false
     };
     
     this.toggleUserProfile = this.toggleUserProfile.bind(this);

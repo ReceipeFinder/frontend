@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {ContextMenu, MenuFactory, MenuItemFactory, Dialog, Button} from "@blueprintjs/core";
-import API from '../../../utils/APIHelper'
+import c from 'classnames';
+import {ContextMenu, MenuFactory, MenuItemFactory, Dialog} from "@blueprintjs/core";
+import {
+  addToFavourites,
+  removeFromFavourites,
+  addToDone,
+  removeFromDone,
+  addToTodo,
+  removeFromTodo
+} from '../../RecipesList/actions'
 import './styles.less'
 
 class ListItem extends Component {
@@ -13,68 +21,53 @@ class ListItem extends Component {
     }
     
     this.toggleRecipeModal = this.toggleRecipeModal.bind(this);
-    this.addToDoneList = this.addToDoneList.bind(this);
-    this.addToFavourites = this.addToFavourites.bind(this);
-    this.addToTodoList = this.addToTodoList.bind(this);
   }
   
   toggleRecipeModal() {
     this.setState({recipeModalOpened: !this.state.recipeModalOpened})
   }
   
-  addToFavourites() {
-    API.post(`/recipes/favourites/${this.props.recipe.id}`)
-  }
-  
-  addToTodoList() {
-    API.post(`/recipes/todo/${this.props.recipe.id}`)
-  }
-  
-  addToDoneList() {
-    API.post(`/recipes/done/${this.props.recipe.id}`)
-  }
-  
-  removeFromFavourites() {
-    API.remove(`/recipes/favourites/${this.props.recipe.id}`)
-  }
-  
-  removeFromDone() {
-    API.remove(`/recipes/done/${this.props.recipe.id}`)
-  }
-  
-  removeFromTodo() {
-    API.remove(`/recipes/todo/${this.props.recipe.id}`)
-  }
-  
   render() {
-    let {recipe} = this.props;
+    let {recipe, index} = this.props;
     return (
       <div className="rf__list-item__wrapper clickable">
         <div className="block"
-             onClick={this.toggleRecipeModal}
+             style={{position: 'relative'}}
              onContextMenu={(e) => {
                e.preventDefault();
                let children = [
                  MenuItemFactory({
                    key: 1,
                    onClick: () => {
-                     recipe.user_recipe.favourite ? this.removeFromFavourites() : this.addToFavourites()
+                     recipe.user_recipe.favourite
+                       ? this.props.removeFromFavourites(recipe.id, index)
+                       : this.props.addToFavourites(recipe.id, index)
                    },
-                   text: recipe.user_recipe.favourite ? "Remove from list: favourites" : "Add to list: favourites"
+                   text: recipe.user_recipe.favourite
+                     ? "Remove from list: favourites"
+                     : "Add to list: favourites"
                  }),
                  MenuItemFactory({
                    key: 2,
                    onClick: () => {
-                     recipe.user_recipe.done ? this.removeFromDone() :this.addToDoneList()
+                     recipe.user_recipe.done
+                       ? this.props.removeFromDone(recipe.id, index)
+                       : this.props.addToDone(recipe.id, index)
                    },
-                   text: recipe.user_recipe.done ? "Remove from list: done": "Add to list: done"
+                   text: recipe.user_recipe.done
+                     ? "Remove from list: done"
+                     : "Add to list: done"
                  }),
                  MenuItemFactory({
                    key: 3,
                    onClick: () => {
-                     recipe.user_recipe.todo ? this.removeFromTodo() : this.addToTodoList()
+                     recipe.user_recipe.todo
+                       ? this.props.removeFromTodo(recipe.id, index)
+                       : this.props.addToTodo(recipe.id, index)
                    },
-                   text: recipe.user_recipe.todo ? "Remove from list: todo" : "Add to list: to do"
+                   text: recipe.user_recipe.todo
+                     ? "Remove from list: todo"
+                     : "Add to list: to do"
                  })
                ]
           
@@ -84,13 +77,31 @@ class ListItem extends Component {
                ContextMenu.show(menu, {left: e.clientX, top: e.clientY});
              }}>
           
-          <div className="rf__list-item">
+          <div className="rf__list-item" onClick={this.toggleRecipeModal}>
             <div className="rf__list-item__img__wrapper">
               {recipe.image_url ? <img src={recipe.image_url}/> : null}
             </div>
             
             <p>{recipe.title}</p>
           </div>
+          <div className="rf__icons">
+            <div className={c({"pt-icon-star": true, "active": recipe.user_recipe.favourite})}
+                 onClick={
+                   recipe.user_recipe.favourite
+                     ? () => this.props.removeFromFavourites(recipe.id, index)
+                     : () => this.props.addToFavourites(recipe.id, index)}/>
+            <div className={c({"pt-icon-bookmark": true, "active": recipe.user_recipe.todo})}
+                 onClick={
+                   recipe.user_recipe.todo
+                     ? () => this.props.removeFromTodo(recipe.id, index)
+                     : () => this.props.addToTodo(recipe.id, index)}/>
+            <div className={c({"pt-icon-tick": true, "active": recipe.user_recipe.done})}
+                 onClick={
+                   recipe.user_recipe.done
+                     ? () => this.props.removeFromDone(recipe.id, index)
+                     : () => this.props.addToDone(recipe.id, index)}/>
+          </div>
+        
         </div>
         <Dialog isOpen={this.state.recipeModalOpened}
                 onClose={this.toggleRecipeModal}>
@@ -107,13 +118,13 @@ class ListItem extends Component {
             <div className="pt-dialog-footer-actions">
               <div className="recipe__icons__wrapper">
                 <div className="recipe__icon clickable">
-                  <i className="fa fa-check fa-2x" aria-hidden="true"/>
+                  <div className={c({"pt-icon-star": true, "active": recipe.user_recipe.favourite})}/>
                 </div>
                 <div className="recipe__icon clickable">
-                  <i className="fa fa-heart-o fa-2x" aria-hidden="true"/>
+                  <div className={c({"pt-icon-bookmark": true, "active": recipe.user_recipe.todo})}/>
                 </div>
                 <div className="recipe__icon clickable">
-                  <i className="fa fa-bookmark-o fa-2x" aria-hidden="true"/>
+                  <div className={c({"pt-icon-tick": true, "active": recipe.user_recipe.done})}/>
                 </div>
               </div>
             </div>
@@ -129,7 +140,27 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  return {}
+  return {
+    removeFromTodo: (id, index) => {
+      dispatch(removeFromTodo(id, index))
+    },
+    removeFromFavourites: (id, index) => {
+      dispatch(removeFromFavourites(id, index))
+    },
+    removeFromDone: (id, index) => {
+      dispatch(removeFromDone(id, index))
+    },
+    addToTodo: (id, index) => {
+      dispatch(addToTodo(id, index))
+    },
+    addToDone: (id, index) => {
+      dispatch(addToDone(id, index))
+    },
+    addToFavourites: (id, index) => {
+      dispatch(addToFavourites(id, index))
+    }
+    
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListItem)

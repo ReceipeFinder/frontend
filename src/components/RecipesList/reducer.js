@@ -12,20 +12,26 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case actions.RECEIVE_MY_RECIPES:
-      console.log(action)
       return {
         ...state,
         favourites: action.recipes.favourites,
         done: action.recipes.done,
         todo: action.recipes.todo,
-        isFetching: false
+        isFetching: false,
+        didInvalidate: false
       };
     
     case actions.REQUEST_MY_RECIPES:
       return {
         ...state,
         isFetching: true
-      }
+      };
+      
+    case actions.INVALIDATE_MY_RECIPES:
+      return {
+        ...state,
+        didInvalidate: true
+      };
     
     default:
       return state

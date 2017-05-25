@@ -16,7 +16,7 @@ class List extends Component {
       <div className="list-of-recipes">
         <Scrollbar>
           {recipes.map((recipe, index) =>
-            <ListItem key={index} recipe={recipe}/>
+            <ListItem key={index} index={index} recipe={recipe}/>
           )}
         </Scrollbar>
       </div>

@@ -32,6 +32,30 @@ export function setRecipeInWorkspace(recipe) {
   }
 }
 
+export const TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE'
+export function toggleFavourite(id) {
+  return {
+    type: TOGGLE_FAVOURITE,
+    id: id
+  }
+}
+
+export const TOGGLE_DONE = 'TOGGLE_DONE'
+export function toggleDone(id) {
+  return {
+    type: TOGGLE_DONE,
+    id: id
+  }
+}
+
+export const TOGGLE_TODO = 'TOGGLE_TODO'
+export function toggleTodo(id) {
+  return {
+    type: TOGGLE_TODO,
+    id: id
+  }
+}
+
 export function searchRecipes(ingredients) {
   return dispatch => {
     dispatch(requestRecipesSearch());
