@@ -32,8 +32,8 @@ class Login extends Component {
           </div>
           <div className="facebook__button"
                onClick={() => {
-                 // this.props.facebookLogin();
-                 this.props.checkUserProfile()
+                 this.props.facebookLogin();
+                 // this.props.checkUserProfile()
                }}>
             <div className="facebook__icon">
               <i className="fa fa-facebook fa-3x" aria-hidden="true"/>

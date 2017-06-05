@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_BASE = `http://${location.host}`;
+const API_BASE = `https://${location.host}`;
 
 export default {
   get: (url, body) => {

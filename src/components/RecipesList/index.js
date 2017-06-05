@@ -72,10 +72,10 @@ class RecipesList extends Component {
                 No recipes in here :(
               </div>
             }
-            <div className="user-details">
-              <div className="user-name">Logged in as {userProfile.name}</div>
-              <div className="user-logout clickable">logout</div>
-            </div>
+            {/*<div className="user-details">*/}
+              {/*<div className="user-name">Logged in as {userProfile.name}</div>*/}
+              {/*<div className="user-logout clickable">logout</div>*/}
+            {/*</div>*/}
           </div>
         </div>
       </div>

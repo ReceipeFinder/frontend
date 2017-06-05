@@ -19,13 +19,13 @@ export function checkUserProfile() {
   return dispatch => {
     requestUserProfile();
     
-    API.post('/users/1/login').then(result => {
-      if (result.status === 200) {
+    // API.post('/users/1/login').then(result => {
+    //   if (result.status === 200) {
         API.get('/users/me').then(userProfile => {
           dispatch(receiveUserProfile(userProfile.data))
         })
-      }
-    })
+      // }
+    // })
   }
 }
 
